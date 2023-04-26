@@ -20,6 +20,24 @@ export default function PlatoonStructure({ platoon }:any) {
 						item.count > 1 ? item.count + " x " + item.name : item.name
 					}
 					{item.units.map((unit: any) => (
+						unit.type == "team" ?
+						(
+							[...Array(unit.count)].map(() => (
+							unit.units.map((unit: any) => (
+							<div className='flex font-light pl-6'>
+								<GiPerson className='text-3xl p-1'/>
+								<span className='text-xl'>{unit.name}</span>
+								<div className='flex pl-3'>
+									<GiRank3 className='text-3xl p-1'/><div className='text-base pl-0 p-1'>{unit.rank}</div>
+								</div>
+								<div className='flex pl-3'>
+									<GiM3GreaseGun className='text-3xl p-1'/><div className='text-base pl-0 p-1'>
+										{unit.weapons.join(', ')}
+									</div>
+								</div>
+							</div>
+						)))))
+						:
 						<div className='flex font-light'>
 							<GiPerson className='text-3xl p-1'/>
 							<span className='text-xl'>{unit.name}</span>
