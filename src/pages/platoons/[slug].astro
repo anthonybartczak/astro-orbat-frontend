@@ -1,0 +1,22 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const items = await fetch('http://127.0.0.1:8000/api/platoon_ids/').then((response) =>
+    response.json()
+  );
+
+  const paths: { params: { slug: string; }; }[] = [];
+
+  items.map((item: { id: string; }) => {
+    paths.push({params: {slug: item.id}});
+  });
+
+  return paths;
+}
+
+const { slug } = Astro.params;
+---
+
+<Layout title="Platoons"><div>Good dog, {slug}!</div></Layout>
+

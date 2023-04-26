@@ -1,0 +1,60 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Card from '../../components/Card.astro';
+
+const items = await fetch('http://127.0.0.1:8000/api/platoons/').then((response) =>
+  response.json()
+);
+
+---
+
+<Layout title="Platoons">
+	<main>
+		<h1>Welcome to Astro</h1>
+		<p class="instructions">
+			Below you can find a list of all of the currently available platoon structures.
+		</p>
+		<ul role="list" class="flex flex-col gap-4">
+            {items.map((item: { id: string; country: string; name: string; branch: string; }) => (
+                <Card
+                    href={"/platoons/" + item.id}
+                    image={"https://flagsapi.com/" + item.country + "/shiny/48.png"}
+                    title={item.name}
+                    body={"Branch - " + item.branch}
+                />
+            ))}
+		</ul>
+	</main>
+</Layout>
+
+<style>
+	main {
+		margin: auto;
+		padding: 1.5rem;
+		max-width: 60ch;
+	}
+	h1 {
+		font-size: 3rem;
+		font-weight: 800;
+		margin: 0;
+	}
+	.instructions {
+		line-height: 1.6;
+		margin: 1rem 0;
+		border: 1px solid rgba(var(--accent), 25%);
+		background-color: white;
+		padding: 1rem;
+		border-radius: 0.4rem;
+	}
+	.instructions code {
+		font-size: 0.875em;
+		font-weight: bold;
+		background: rgba(var(--accent), 12%);
+		color: rgb(var(--accent));
+		border-radius: 4px;
+		padding: 0.3em 0.45em;
+	}
+	.instructions strong {
+		color: rgb(var(--accent));
+	}
+</style>
