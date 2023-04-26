@@ -1,5 +1,12 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import PlatoonStructure from '../../components/PlatoonStructure';
+
+const { slug } = Astro.params;
+
+let res = await fetch(`http://127.0.0.1:8000/api/platoons/${slug}/details/`)
+let [platoon] = await res.json();
+console.log(platoon.structure)
 
 export async function getStaticPaths() {
   const items = await fetch('http://127.0.0.1:8000/api/platoon_ids/').then((response) =>
@@ -15,8 +22,14 @@ export async function getStaticPaths() {
   return paths;
 }
 
-const { slug } = Astro.params;
 ---
 
-<Layout title="Platoons"><div>Good dog, {slug}!</div></Layout>
+<Layout title="Platoons">
+  <main class="flex flex-col text-gray-300 max-w-2xl place-content-center mx-auto mt-5">
+    <h1 class="self-center text-3xl">{platoon.name}</h1>
+    <div class="mt-12">
+      <PlatoonStructure {...platoon.structure}/>
+    </div>
+  </main>
+</Layout>
 

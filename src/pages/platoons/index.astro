@@ -9,17 +9,17 @@ const items = await fetch('http://127.0.0.1:8000/api/platoons/').then((response)
 ---
 
 <Layout title="Platoons">
-	<main>
-		<h1>Welcome to Astro</h1>
-		<p class="instructions">
+	<main class="max-w-2xl">
+		<p class="instructions bg-neutral-900 text-gray-300">
 			Below you can find a list of all of the currently available platoon structures.
 		</p>
 		<ul role="list" class="flex flex-col gap-4">
             {items.map((item: { id: string; country: string; name: string; branch: string; }) => (
                 <Card
                     href={"/platoons/" + item.id}
-                    image={"https://flagsapi.com/" + item.country + "/shiny/48.png"}
-                    title={item.name}
+                    image={"https://flagcdn.com/60x45/" + item.country.toLowerCase() + ".webp"}
+					image_title={item.country + " flag"}
+					title={item.name}
                     body={"Branch - " + item.branch}
                 />
             ))}
@@ -41,8 +41,6 @@ const items = await fetch('http://127.0.0.1:8000/api/platoons/').then((response)
 	.instructions {
 		line-height: 1.6;
 		margin: 1rem 0;
-		border: 1px solid rgba(var(--accent), 25%);
-		background-color: white;
 		padding: 1rem;
 		border-radius: 0.4rem;
 	}
