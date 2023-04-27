@@ -3,15 +3,19 @@ import Layout from '../../layouts/Layout.astro';
 import PlatoonStructure from '../../components/PlatoonStructure';
 import PlatoonNotes from '../../components/PlatoonNotes';
 import PlatoonSources from '../../components/PlatoonSources';
-import { GiPerson, GiCalendar } from 'react-icons/gi'
+import { GiPerson } from 'react-icons/gi'
+import { loadEnv } from "vite";
 
+const { PUBLIC_API_SITE } = loadEnv(import.meta.env.PUBLIC_API_SITE, process.cwd(), "");
 const { slug } = Astro.params;
 
-let res = await fetch(`http://127.0.0.1:8000/api/platoons/${slug}/details/`)
+let res = await fetch(PUBLIC_API_SITE + `/api/platoons/${slug}/details/`)
 let [platoon] = await res.json();
 
 export async function getStaticPaths() {
-  const items = await fetch('http://127.0.0.1:8000/api/slugs/platoons/').then((response) =>
+  const { PUBLIC_API_SITE } = loadEnv(import.meta.env.PUBLIC_API_SITE, process.cwd(), "");
+
+  const items = await fetch(PUBLIC_API_SITE + `/api/slugs/platoons/`).then((response) =>
     response.json()
   );
 
@@ -32,7 +36,7 @@ export async function getStaticPaths() {
       <h1 class="self-center text-3xl">{platoon.name}</h1>
       <div class="flex flex-row gap-4 self-center mt-2">
         <div class="flex text-xl"><GiPerson className="mt-1"/>{platoon.structure.size}</div>
-        <div class="flex"><GiCalendar className="p-1"/><span class="text-xl">{JSON.parse(platoon.era).lower} - {JSON.parse(platoon.era).upper}</span></div>
+        <div class="flex"><GiPerson className="p-1"/><span class="text-xl">{JSON.parse(platoon.era).lower} - {JSON.parse(platoon.era).upper}</span></div>
       </div>
     </div>
     <div class="mt-12">

@@ -1,8 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Card from '../../components/Card.astro';
+import { loadEnv } from "vite";
 
-const items = await fetch('http://127.0.0.1:8000/api/platoons/').then((response) =>
+const { PUBLIC_API_SITE } = loadEnv(import.meta.env.PUBLIC_API_SITE, process.cwd(), "");
+
+const items = await fetch(PUBLIC_API_SITE + '/api/platoons/').then((response) =>
   response.json()
 );
 
