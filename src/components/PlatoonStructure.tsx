@@ -24,7 +24,7 @@ export default function PlatoonStructure({ platoon }:any) {
 						(
 							[...Array(unit.count)].map(() => (
 							unit.units.map((unit: any) => (
-							<div className='flex font-light pl-6'>
+							<div className='flex font-light pl-6 hover:text-white transition ease-linear duration-100'>
 								<GiPerson className='text-3xl p-1'/>
 								<span className='text-xl'>{unit.name}</span>
 								<div className='flex pl-3'>
@@ -38,7 +38,7 @@ export default function PlatoonStructure({ platoon }:any) {
 							</div>
 						)))))
 						:
-						<div className='flex font-light'>
+						<div className='flex font-light hover:text-white transition ease-linear duration-100'>
 							<GiPerson className='text-3xl p-1'/>
 							<span className='text-xl'>{unit.name}</span>
 							<div className='flex pl-3'>

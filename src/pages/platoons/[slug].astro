@@ -1,15 +1,17 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import PlatoonStructure from '../../components/PlatoonStructure';
+import PlatoonNotes from '../../components/PlatoonNotes';
+import PlatoonSources from '../../components/PlatoonSources';
+import { GiPerson } from 'react-icons/gi'
 
 const { slug } = Astro.params;
 
 let res = await fetch(`http://127.0.0.1:8000/api/platoons/${slug}/details/`)
 let [platoon] = await res.json();
-console.log(platoon.structure)
 
 export async function getStaticPaths() {
-  const items = await fetch('http://127.0.0.1:8000/api/platoon_ids/').then((response) =>
+  const items = await fetch('http://127.0.0.1:8000/api/slugs/platoons/').then((response) =>
     response.json()
   );
 
@@ -26,9 +28,13 @@ export async function getStaticPaths() {
 
 <Layout title="Platoons">
   <main class="flex flex-col text-gray-300 max-w-2xl place-content-center mx-auto mt-5">
-    <h1 class="self-center text-3xl">{platoon.name}</h1>
+    <div class="flex flex-col text-3xl gap-1 bg-neutral-900 rounded-md p-3"><h1 class="self-center text-3xl">{platoon.name}</h1>
+      <div class="flex self-center">{platoon.structure.size}<GiPerson className="mt-1"/></div>
+    </div>
     <div class="mt-12">
       <PlatoonStructure {...platoon.structure}/>
+      <PlatoonNotes {...platoon.notes}/>
+      <PlatoonSources {...platoon.sources}/>
     </div>
   </main>
 </Layout>
