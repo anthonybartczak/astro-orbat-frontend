@@ -17,13 +17,15 @@ const items = await fetch(PUBLIC_API_SITE + '/api/platoons/').then((response) =>
 			Below you can find a list of all of the currently available platoon structures.
 		</p>
 		<ul role="list" class="flex flex-col gap-4">
-            {items.map((item: { id: string; country: string; name: string; branch: string; }) => (
+            {items.map((item: { id: string; country: string; name: string; branch: string; era:any;}) => (
                 <Card
                     href={"/platoons/" + item.id}
                     image={"https://flagcdn.com/60x45/" + item.country.toLowerCase() + ".webp"}
 					image_title={item.country + " flag"}
 					title={item.name}
-                    body={"Branch - " + item.branch}
+                    branch={"Branch - " + item.branch}
+					dateStart={JSON.parse(item.era).lower}
+					dateTo={JSON.parse(item.era).upper}
                 />
             ))}
 		</ul>

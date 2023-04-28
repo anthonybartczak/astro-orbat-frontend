@@ -1,13 +1,17 @@
 ---
 export interface Props {
 	title: string;
-	body: string;
+	branch: string;
 	href: string;
 	image: string;
 	image_title: string;
+	dateStart: string;
+	dateTo: string;
 }
 
-const { href, image, image_title, title, body } = Astro.props;
+const currentDate = new Date()
+
+const { href, image, image_title, title, branch, dateStart, dateTo } = Astro.props;
 ---
 
 <li class="link-card p-3 bg-neutral-900 hover:bg-neutral-800 transition ease-linear duration-100">
@@ -18,8 +22,11 @@ const { href, image, image_title, title, body } = Astro.props;
 				<h2 class="text-gray-200 font-semibold text-xl">
 					{title}
 				</h2>
-				<p class="text-gray-500 text-lg">
-					{body}
+				<p class="flex text-gray-500 text-lg">
+				<svg class='mt-1 mr-1.5 w-6 h-6' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M24 33V15M10 9h28v6H10zM8 32l6-7h19.974L40 32M4 33h8v8H4zm16 0h8v8h-8zm16 0h8v8h-8z"/></svg>
+					{branch}
+				<svg class='mt-1 ml-2 mr-1.5 w-6 h-6' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M5 22q-.825 0-1.413-.588T3 20V6q0-.825.588-1.413T5 4h1V2h2v2h8V2h2v2h1q.825 0 1.413.588T21 6v14q0 .825-.588 1.413T19 22H5Zm0-2h14V10H5v10ZM5 8h14V6H5v2Zm0 0V6v2Zm7 6q-.425 0-.713-.288T11 13q0-.425.288-.713T12 12q.425 0 .713.288T13 13q0 .425-.288.713T12 14Zm-4 0q-.425 0-.713-.288T7 13q0-.425.288-.713T8 12q.425 0 .713.288T9 13q0 .425-.288.713T8 14Zm8 0q-.425 0-.713-.288T15 13q0-.425.288-.713T16 12q.425 0 .713.288T17 13q0 .425-.288.713T16 14Zm-4 4q-.425 0-.713-.288T11 17q0-.425.288-.713T12 16q.425 0 .713.288T13 17q0 .425-.288.713T12 18Zm-4 0q-.425 0-.713-.288T7 17q0-.425.288-.713T8 16q.425 0 .713.288T9 17q0 .425-.288.713T8 18Zm8 0q-.425 0-.713-.288T15 17q0-.425.288-.713T16 16q.425 0 .713.288T17 17q0 .425-.288.713T16 18Z"/></svg>
+					{dateStart} - {dateTo == '9999' ? currentDate.getFullYear() : dateTo}
 				</p>
 			</div>
 		</div>
