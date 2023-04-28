@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { GiPerson, GiRank3, GiM3GreaseGun } from 'react-icons/gi'
 
 export default function PlatoonNotes({ notes }:any) {
 
